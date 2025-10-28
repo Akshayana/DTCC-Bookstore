@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   mysql:
-    image: akshayana/bookify-mysqldb:v2
+    image: mysql:8.1
     container_name: mysql_db
     restart: always
     environment:
