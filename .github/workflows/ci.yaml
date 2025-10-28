@@ -12,20 +12,30 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 1: Login to Docker Hub
+      # Step 1: Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Step 2: Build and Push Images
+      # Step 2: Build and Push Docker Images
       - name: Build and Push Docker Images
         run: |
           docker compose build --no-cache
           docker compose push
 
-      # Step 3: Deploy on AWS EC2
+      # Step 3: Copy docker-compose.yml to EC2
+      - name: Copy docker-compose.yml to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "docker-compose.yml"
+          target: "~/app"
+
+      # Step 4: Deploy to EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.1.0
         with:
@@ -33,14 +43,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~/app || mkdir ~/app && cd ~/app
-
-            # Ensure docker-compose.yml is updated
-            cat > docker-compose.yml <<'EOF'
-            $(cat docker-compose.yml)
-            EOF
-
-            echo "Pulling and restarting services..."
+            cd ~/app
             docker compose down -v || true
             docker compose pull
             docker compose up -d
