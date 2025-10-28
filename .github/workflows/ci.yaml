@@ -1,4 +1,3 @@
-modify the change in this and give me a full file
 name: CI/CD - Build, Push, and Deploy to EC2 AWS
 
 on:
