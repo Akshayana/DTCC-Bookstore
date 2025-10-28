@@ -1,0 +1,61 @@
+
+.order-card {
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+  border-left-color: #0d6efd;
+}
+
+
+.status-select {
+  min-width: 150px;
+  width: auto;
+  cursor: pointer;
+  border: 2px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+
+.status-select:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+.status-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+
+.toggle-btn {
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.05);
+  color: #0d6efd !important;
+}
+
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+
+
+
+
+.table-hover tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+  cursor: pointer;
+}

@@ -1,0 +1,43 @@
+<div class="seller-books-container">
+  <h3>Your Books 📚</h3>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table table-dark">
+        <th>Title</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of books" >
+        <td>
+          <input class="form-control" [(ngModel)]="b.title">
+        </td>
+        <td>
+          <input class="form-control" [(ngModel)]="b.author">
+        </td>
+        <td>
+          <input class="form-control" [(ngModel)]="b.category">
+        </td>
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="b.price">
+        </td>
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="b.stockQuantity" min="0">
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="updateStock(b)">
+            Update Stock
+          </button>
+          <button class="btn btn-success btn-sm" (click)="updateBook(b)">
+            Update Book
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

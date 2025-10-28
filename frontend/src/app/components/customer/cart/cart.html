@@ -1,0 +1,49 @@
+<div class="container mt-5">
+  <div *ngIf="cartService.getCartItems().length === 0" class="text-center text-light">
+    <h3>Your cart is empty</h3>
+    <p style="opacity: 0.8">Add some books to get started !</p>
+    <button class="btn btn-light mt-3" (click)="browseBooks()">Browse Books</button>
+  </div>
+
+  <div *ngIf="cartService.getCartItems().length > 0">
+    <table class="table table-hover table-bordered text-center align-middle">
+      <thead>
+        <tr class="table-dark">
+          <th>Book</th>
+          <th style="width: 140px">Quantity</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of cartService.getCartItems()">
+          <td>{{ item.title }}</td>
+
+          <td>
+            <div class="input-group input-group-sm">
+              <button class="btn btn-outline-secondary" (click)="updateQty(item, -1)">-</button>
+              <input type="text" class="form-control text-center" [(ngModel)]="item.quantity" />
+              <button class="btn btn-outline-secondary" (click)="updateQty(item, 1)">+</button>
+            </div>
+          </td>
+
+          <td>₹{{ item.price * item.quantity }}</td>
+
+          <td>
+            <button class="btn btn-danger btn-sm" style="cursor:pointer;" (click)="remove(item.bookId)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex align-items-center justify-content-between">
+      <h4 style="color: white">Total: ₹{{ cartService.getTotalAmount() }}</h4>
+
+      <button class="btn btn-success mt-4" (click)="proceedToCheckout()">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+</div>

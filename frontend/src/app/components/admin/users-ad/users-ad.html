@@ -1,0 +1,34 @@
+<div class="users-container">
+  
+  <h3>Manage Users 👥 </h3>
+
+  <table class="table table-bordered  table-hover mt-4" >
+    <thead>
+      <tr class="table-dark">
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role.name }}</td>
+        <td>
+  <button 
+    class="btn btn-danger btn-sm" 
+    style="cursor:pointer;" 
+    (click)="deleteUser(user.id)"
+    [disabled]="user.id === 1"
+    [title]="user.id === 1 ? 'Admin cannot be deleted' : 'Delete User'">
+    <i class="bi bi-trash"></i>
+  </button>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

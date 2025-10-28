@@ -1,0 +1,76 @@
+<div class="container mt-4">
+  <div class="row g-5 mb-4">
+    <div class="col-md-4">
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="searchKeyword"
+          (input)="onSearchChange()"
+          class="form-control"
+          placeholder="Search books..."
+        />
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <select #categorySelect class="form-select" (change)="filterByCategory(categorySelect.value)">
+        <option value="">All Categories</option>
+        <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <select #sellerSelect class="form-select" (change)="filterBySeller(sellerSelect.value)">
+        <option value="">All Sellers</option>
+        <option *ngFor="let s of sellers" [value]="s.id">{{ s.username }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 mb-4" *ngFor="let b of books">
+      <div class="card h-100 shadow-sm">
+        <img [src]="b.imageUrl || 'assets/no-image.png'" class="card-img-top" height="220" />
+        <div class="card-body">
+          <h5 class="card-title">{{ b.title }}</h5>
+          <p class="card-text text-muted">{{ b.author }}</p>
+          <div class="d-flex align-items-center justify-content-between">
+            <p class="m-0">
+              <strong>₹{{ b.price }}</strong>
+            </p>
+
+            <div class="input-group input-group-sm" style="width: 110px">
+              <button
+                class="btn btn-outline-secondary"
+                (click)="adjustQty(b, -1)"
+                [disabled]="b.stockQuantity === 0"
+              >
+                -
+              </button>
+              <input type="text" [(ngModel)]="b.qty" class="form-control text-center" />
+              <button
+                class="btn btn-outline-secondary"
+                (click)="adjustQty(b, 1)"
+                [disabled]="b.stockQuantity === 0"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <button
+            *ngIf="b.stockQuantity > 0"
+            class="btn btn-primary w-100"
+            (click)="addToCart(b, b.qty || 1)"
+          >
+            Add to Cart
+          </button>
+
+          <button *ngIf="b.stockQuantity === 0" class="btn btn-secondary w-100" disabled>
+            Currently Unavailable
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

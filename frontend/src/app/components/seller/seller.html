@@ -1,0 +1,102 @@
+<div class="background-wrapper">
+  <div class="overlay">
+    <div class="custom-navbar">
+      <div class="navbar-content">
+        <div class="logo-section">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="white"
+            class="bi bi-book"
+            viewBox="0 0 16 16"
+            style="margin-right: 1rem"
+          >
+            <path
+              d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"
+            />
+          </svg>
+          <span class="bookify-title">Bookify</span>
+        </div>
+        <div class="user-section">
+          <button class="profile-btn" (click)="openProfileModal()" type="button">
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <div class="user-info">
+            <strong>{{ username }}</strong>
+            <div class="user-role-badge">{{ userRole }}</div>
+          </div>
+        </div>
+        <button class="logout-btn" (click)="onLogout()" type="button">
+          <i class="bi bi-box-arrow-right"></i>
+          LOGOUT
+        </button>
+      </div>
+    </div>
+
+    <div class="content-tabs-wrapper">
+      <div class="content-text">
+        <h2>Seller Dashboard</h2>
+        <p style="opacity: 0.8">Manage your books and inventory</p>
+      </div>
+
+      <div class="tabs-container">
+        <ul class="custom-tabs">
+          <li class="custom-tab-item" *ngFor="let tab of tabs">
+            <a
+              [routerLink]="tab.route"
+              routerLinkActive="active-tab"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="custom-tab-link"
+            >
+              <i class="bi" [ngClass]="tab.icon"></i>
+              {{ tab.label }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<div *ngIf="showProfileModal" class="modal-backdrop" (click)="closeProfileModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>Edit Profile</h3>
+
+    <div class="form-group">
+      <label>Username:</label>
+      <input type="text" [(ngModel)]="editUser.username" [disabled]="!editMode" />
+    </div>
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input
+        type="email"
+        [(ngModel)]="editUser.email"
+        placeholder="Leave blank to keep current"
+        [disabled]="!editMode"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Password:</label>
+      <input
+        type="password"
+        [(ngModel)]="editUser.password"
+        placeholder="Leave blank to keep current"
+        [disabled]="!editMode"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Role:</label>
+      <input type="text" [value]="editUser.role.name" readonly />
+    </div>
+
+    <div class="modal-actions">
+      <button class="save-btn" (click)="updateUser()" type="button" *ngIf="editMode">Save</button>
+      <button class="cancel-btn" (click)="closeProfileModal()" type="button">Cancel</button>
+    </div>
+  </div>
+</div>

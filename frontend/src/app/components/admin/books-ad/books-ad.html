@@ -1,0 +1,104 @@
+<div class="container mt-4">
+<div class="row g-5 mb-4">
+    <div class="col-md-4">
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="searchKeyword"
+          (input)="onSearchChange()"
+          class="form-control"
+          placeholder="Search books..."
+        />
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <select #categorySelect class="form-select" (change)="filterByCategory(categorySelect.value)">
+        <option value="">All Categories</option>
+        <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <select #sellerSelect class="form-select" (change)="filterBySeller(sellerSelect.value)">
+        <option value="">All Sellers</option>
+        <option *ngFor="let s of sellers" [value]="s.id">{{ s.username }}</option>
+      </select>
+    </div>
+  </div>
+</div>
+  <div class="books-container">
+  <div class="books-header">
+    <h3>Manage Books 📚 </h3>
+    <button class="btn btn-dark" (click)="openAddModal()">+ Add Book</button>
+  </div>
+
+  <table class="table table-bordered table-hover mt-3">
+    <thead>
+      <tr class="table-dark">
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Seller ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>{{ book.id }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.category }}</td>
+        <td>{{ book.price }}</td>
+        <td>{{ book.stockQuantity }}</td>
+        <td>{{ book.sellerId }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" style="cursor:pointer;" (click)="deleteBook(book.id!)">
+              <i class="bi bi-trash"></i>
+            </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="showAddModal" class="modal-backdrop" (click)="closeAddModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h4>Add New Book</h4>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" [(ngModel)]="newBook.title" />
+      </div>
+      <div class="form-group">
+        <label>Author</label>
+        <input type="text" [(ngModel)]="newBook.author" />
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" [(ngModel)]="newBook.category" />
+      </div>
+      <div class="form-group">
+        <label>Price</label>
+        <input type="number" [(ngModel)]="newBook.price" />
+      </div>
+      <div class="form-group">
+        <label>Stock Quantity</label>
+        <input type="number" [(ngModel)]="newBook.stockQuantity" />
+      </div>
+      <div class="form-group">
+        <label>Seller ID</label>
+        <input type="number" [(ngModel)]="newBook.sellerId" />
+      </div>
+      <div class="form-group">
+        <label>Image URL</label>
+        <input type="text" [(ngModel)]="newBook.imageUrl" />
+      </div>
+      <div class="modal-actions">
+        <button class="save-btn" (click)="addBook()">Add</button>
+        <button class="cancel-btn" (click)="closeAddModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
