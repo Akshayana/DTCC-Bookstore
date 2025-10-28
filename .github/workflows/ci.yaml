@@ -13,20 +13,28 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Log in to Docker Hub
+      # Step 2: Verify files exist
+      - name: Verify required files
+        run: |
+          echo "Checking for docker-compose.yml and db_init contents..."
+          ls -R db_init || echo "db_init folder missing!"
+          test -f docker-compose.yml || (echo "❌ docker-compose.yml missing!" && exit 1)
+          test -f db_init/bookstore_dump.sql || (echo "❌ bookstore_dump.sql missing!" && exit 1)
+
+      # Step 3: Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Step 3: Build and Push Docker Images
+      # Step 4: Build and Push Docker Images
       - name: Build and Push Docker Images
         run: |
           docker compose build --no-cache
           docker compose push
 
-      # Step 4: Copy docker-compose.yml and db_init/ to EC2
+      # Step 5: Copy docker-compose.yml and db_init/ to EC2
       - name: Copy files to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -34,11 +42,11 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: |
-            docker-compose.yml
-            db_init/
+            ./docker-compose.yml
+            ./db_init/
           target: ~/app
 
-      # Step 5: Deploy on EC2
+      # Step 6: Deploy to EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.1.0
         with:
