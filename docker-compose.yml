@@ -3,7 +3,7 @@ version: "3.9"
 services:
   mysql:
     image: mysql:8.1
-    image: akshayana/bookstore-sqldb:latest
+    image: akshayana/bookstore-sqldb:v2
     container_name: mysql_db
     restart: always
     environment:
@@ -17,7 +17,7 @@ services:
 
   backend:
     build: ./backend
-    image: akshayana/bookstore-backend:latest
+    image: akshayana/bookstore-backend:v2
     container_name: spring_backend
     restart: always
     depends_on:
@@ -34,7 +34,7 @@ services:
 
   frontend:
     build: ./frontend
-    image: akshayana/bookstore-frontend:latest
+    image: akshayana/bookstore-frontend:v2
     container_name: angular_frontend
     restart: always
     depends_on:
