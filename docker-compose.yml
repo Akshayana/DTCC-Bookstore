@@ -3,6 +3,7 @@ version: "3.9"
 services:
   mysql:
     image: mysql:8.1
+    image: akshayana/bookstore-sqldb:latest
     container_name: mysql_db
     restart: always
     environment:
