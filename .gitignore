@@ -1,0 +1,12 @@
+# Ignore build files
+frontend/dist/
+backend/target/
+node_modules/
+*.class
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+
+# Ignore system files
+.DS_Store
