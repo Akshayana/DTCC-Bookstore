@@ -61,7 +61,7 @@ jobs:
           script: |
             mkdir -p ~/app/db_init
             cd ~/app/db_init
-            curl -O https://raw.githubusercontent.com/akshayana/DTCC-Bookstore/main/db_init/bookstore_dump.sql
+            curl -O https://raw.githubusercontent.com/akshayana/DTCC-Bookstore/main/db_init/Bookstore_db_dump.sql
             ls -l ~/app/db_init
 
       # ✅ Step 8: Deploy updated containers to EC2
