@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class OrderStatusDto {
-    private Integer orderId;
+    private Long orderId;
     private String status;
 }
