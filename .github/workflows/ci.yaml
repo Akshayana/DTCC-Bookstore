@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # ✅ Step 3: Build frontend before Docker build
+      # Step 3: Build frontend before Docker build
       - name: Build Frontend
         run: |
           cd frontend
