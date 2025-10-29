@@ -28,7 +28,7 @@ jobs:
           npm run build
           cd ..
 
-      # ✅ Step 4: Build backend (optional pre-step, if using Maven/Gradle)
+      # Step 4: Build backend (optional pre-step, if using Maven/Gradle)
       - name: Build Backend
         run: |
           cd backend
