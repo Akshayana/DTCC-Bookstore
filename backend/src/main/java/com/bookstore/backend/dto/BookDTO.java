@@ -10,12 +10,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookDTO {
-    private Long id;
+    private int id;
     private String title;
     private String author;
     private BigDecimal price;
     private String category;
     private Integer stockQuantity;
     private String imageUrl;
-    private Long sellerId;
+    private int sellerId;
 }
