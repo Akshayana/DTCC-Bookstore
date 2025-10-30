@@ -35,7 +35,7 @@ jobs:
           ./mvnw clean package -DskipTests
           cd ..
 
-      # ✅ Step 5: Build and Push Docker Images (Frontend + Backend)
+      #  Step 5: Build and Push Docker Images (Frontend + Backend)
       - name: Build and Push Docker Images
         run: |
           docker compose build --no-cache
