@@ -41,7 +41,7 @@ jobs:
           docker compose build --no-cache
           docker compose push
 
-      # ✅ Step 6: Copy docker-compose.yml to EC2
+      # Step 6: Copy docker-compose.yml to EC2
       - name: Copy docker-compose.yml to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
